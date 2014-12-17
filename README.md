@@ -38,17 +38,18 @@ program.parse();
 ### Command Template Grammar
 
 ```
-command_template = name arg_temp ... 
+command_template = name rarg 0.. oarg_mod 0..
 where
     name = string (no whitespaces, cannot equal node)
     
-    arg_temp = arg
-             = arg... (infinite modifier)
+    rarg = <name> (required argument)
+         = <name, N> (required N-tuple)
     
-    arg = <name> (required argument)
-        = [name] (optional argument)
-        = <name, N> (required N-tuple)
-        = [name, N] (optional N-tuple)
+    oarg = [name] (optional argument)
+         = [name, N] (optional N-tuple)
+
+    oarg_mod = oarg
+             = oarg... (infinite modifier)
 
 infinite and optional arguments must appear last
 ```

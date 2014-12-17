@@ -22,4 +22,5 @@ cmd
   })
   .register('sub4 [hello]...', function (hello){
     console.log('test 5', hello);
-  }).parse();
+  })
+  .register('hello', function(){}).parse();
