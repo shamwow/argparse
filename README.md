@@ -1,4 +1,4 @@
-# ArgsParser
+# ArgvParser
 
 Simple command line argument (not flag) parser.
 
@@ -8,14 +8,14 @@ Simple command line argument (not flag) parser.
 ### Installation
 
 ```sh
-$ npm i argsparser --save
+$ npm i argvparser --save
 ```
 
 ### Usage
 
 ```
-var ArgsParser = require('argsparser'),
-    program = new ArgsParser();
+var ArgvParser = require('argvparser'),
+    program = new ArgvParser();
 
 // global namespace is triggered as toplevel command (see example command templates for clarification)
 program.register('global <required_arg> [optional_arg]', function (rarg, oarg){

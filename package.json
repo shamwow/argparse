@@ -1,5 +1,5 @@
 {
-  "name": "arg-parser",
+  "name": "argvparser",
   "version": "0.0.1",
   "description": "Simple argument parser",
   "main": "index.js",
@@ -7,5 +7,21 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Shahmeer Navid",
-  "license": "ISC"
+  "license": "MIT",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shahmeernavid/argparse.git"
+  },
+  "keywords": [
+    "node",
+    "argument",
+    "parser"
+  ],
+  "bugs": {
+    "url": "https://github.com/shahmeernavid/argparse/issues"
+  },
+  "homepage": "https://github.com/shahmeernavid/argparse"
 }
