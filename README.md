@@ -41,16 +41,19 @@ program.parse();
 ### Command Template Grammar
 
 ```
-command_template = name arg ...
+command_template = name arg_temp ... 
 where
     name = string (no whitespaces, cannot equal node)
+    
+    arg_temp = arg
+             = arg... (infinite modifier)
+    
     arg = <name> (required argument)
         = [name] (optional argument)
         = <name, N> (required N-tuple)
         = [name, N] (optional N-tuple)
-        = arg... (infinite modifier)
 
-infinite arguments and optional arguments must appear last
+infinite and optional arguments must appear last
 ```
 Example Command Templates and Matching Commands:
 (Assume script is defined in ./myfile)
