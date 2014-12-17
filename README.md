@@ -58,19 +58,19 @@ Example Command Templates and Matching Commands:
 ```
 global <required_inf_arg>...
 $  ./myfile test
-$  ./myfile test test2
+$  node ./myfile test test2
 $  ./myfile test test2 test3
 ```
 ```
 sub_cmd <required_inf_arg, 2>...
 $  ./myfile sub_cmd test test2
-$  ./myfile sub_cmd test test2 test3 test4
+$  node ./myfile sub_cmd test test2 test3 test4
 ```
 ```
-tuple <required_inf_arg, 3> [optional_inf_arg]...
-$  ./myfile tuple test test2 test3
+tuple <required_arg, 3> [optional_inf_arg]...
+$  node ./myfile tuple test test2 test3
 $  ./myfile tuple test test2 test3 test4
-$  ./myfile tuple test test2 test3 test4 test6
+$  ./myfile tuple test test2 test3 test4 test5
 ```
 ```
 optional_tuple [optional_inf_tuple, 2]...
@@ -82,9 +82,9 @@ $  ./myfile optional_tuple arg1 arg2 arg3 arg4
 
 ### Todo's
 
- - Write Tests!
- - Introduce support for flag parsing
- - Auto document generation (maybe)
+ - Write Tests
+ - Support for flag parsing
+ - Types
 
 License
 ----
