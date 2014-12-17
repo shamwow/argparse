@@ -2,9 +2,6 @@
 
 Simple command line argument (not flag) parser.
 
-### Version
-0.0.1
-
 ### Installation
 
 ```sh
