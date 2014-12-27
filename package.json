@@ -1,6 +1,6 @@
 {
   "name": "argvparser",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "Simple argument parser",
   "main": "index.js",
   "scripts": {

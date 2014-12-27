@@ -20,7 +20,7 @@ program.register('global <required_arg> [optional_arg]', function (rarg, oarg){
     console.log('Optional Arg: ', oarg);
 });
 
-// register calls can be chained [ArgsParser::register() returns instance of ArgsParser]
+// register calls can be chained [ArgvParser::register() returns instance of ArgvParser]
 program
     .register('test [optional_arg]', function (oarg){
         console.log('Optional Argument', oarg);
@@ -30,7 +30,7 @@ program
         console.log('Tuple Argument', tuple);
     });
     
-// to actually parse arguments call ArgsParser::parse()
+// to actually parse arguments call ArgvParser::parse()
 program.parse();
 
 ```
