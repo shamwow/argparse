@@ -1,7 +1,7 @@
 import assert from 'assert';
-import { CommandTemplate, FlagNode, Node, OArgNode, OptionNode, RArgNode } from '../lib/parser';
-import { InputTokenizer, PatternTokenizer } from '../lib/tokenizer';
-import Matcher from '../lib/matcher';
+import { CommandTemplate, FlagNode, Node, OArgNode, OptionNode, RArgNode } from '../lib/Parser';
+import { InputTokenizer, PatternTokenizer } from '../lib/Tokenizer';
+import Matcher from '../lib/Matcher';
 
 describe('Matcher', () => {
     describe('valid inputs for \'test <rarg> -t:2 [oarg]... -o --flag --test\'.', () => {

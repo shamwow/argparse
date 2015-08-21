@@ -1,6 +1,6 @@
-import Matcher from './matcher';
-import Parser from './parser';
-import { InputTokenizer, PatternTokenizer } from './tokenizer';
+import Matcher from './lib/Matcher';
+import Parser from './lib/Parser';
+import { InputTokenizer, PatternTokenizer } from './lib/Tokenizer';
 
 export default class ArgvParser {
     constructor() {
@@ -86,7 +86,7 @@ export default class ArgvParser {
         let args;
 
         if (manualArguments) {
-            args = manualArguments;
+            args = manualArguments.join(' ');
         }
         else {
             args = [].slice.call(process.argv, 2).join(' ');
@@ -102,7 +102,7 @@ export default class ArgvParser {
         // 'test two three four ...' and we have registered commands with ids 'test' and
         // 'test two three', the command with id 'test two three' will be matched.
         let id = '';
-        let lastCommand;
+        let lastCommand = this.commands[id];
         for (let i = 0; i < tokens.length; i++) {
             // If token is an ID, match add it to the id string and check if
             // it corresponds to a command.

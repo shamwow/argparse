@@ -1,1 +1,2 @@
-require('./dist/lib/argvparser');
+require('babel/polyfill');
+module.exports = require('./dist/argvparser');

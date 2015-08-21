@@ -1,4 +1,4 @@
-import ArgvParser from '../lib/argvparser';
+import ArgvParser from '../ArgvParser';
 import assert from 'assert';
 
 describe('ArgvParser', () => {
@@ -29,6 +29,22 @@ describe('ArgvParser', () => {
             assert.deepEqual(options, {
                 o: 'dir'
             });
+            assert.deepEqual(flags, {});
+        });
+
+        prgm.parse();
+    });
+
+    it('should properly register empty command template and match input ', () => {
+        process.argv = ['node', __filename, 'test'];
+
+        const prgm = new ArgvParser();
+
+        prgm.register('<rarg>',
+                (rarg, options, flags) => {
+
+            assert.equal(rarg, 'test');
+            assert.deepEqual(options, {});
             assert.deepEqual(flags, {});
         });
 

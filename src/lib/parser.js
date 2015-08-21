@@ -1,4 +1,4 @@
-import Reader from './reader';
+import Reader from './Reader';
 
 export class CommandTemplate {
     constructor(args) {

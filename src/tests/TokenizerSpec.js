@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { InputTokenizer, PatternTokenizer } from '../lib/tokenizer';
+import { InputTokenizer, PatternTokenizer } from '../lib/Tokenizer';
 
 describe('Pattern Tokenizer', () => {
     it('should properly parse valid input', () => {

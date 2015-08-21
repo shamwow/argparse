@@ -1,7 +1,7 @@
 import assert from 'assert';
-import { CommandTemplate, FlagNode, Node, OArgNode, OptionNode, RArgNode } from '../lib/parser';
-import Parser from '../lib/parser';
-import { PatternTokenizer } from '../lib/tokenizer';
+import { CommandTemplate, FlagNode, Node, OArgNode, OptionNode, RArgNode } from '../lib/Parser';
+import Parser from '../lib/Parser';
+import { PatternTokenizer } from '../lib/Tokenizer';
 
 describe('Command Template Parser', () => {
     const nodeEquality = (node1, node2) => {

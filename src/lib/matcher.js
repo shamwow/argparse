@@ -1,4 +1,4 @@
-import Reader from './reader';
+import Reader from './Reader';
 import MapUtils from '../utils/MapUtils';
 
 export default class Matcher extends Reader {

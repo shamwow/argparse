@@ -1,6 +1,6 @@
 {
   "name": "argvparser",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple argument parser",
   "main": "index.js",
   "author": "Shahmeer Navid",
@@ -27,6 +27,7 @@
   "dependencies": {
     "gulp": "^3.9.0",
     "gulp-babel": "^5.2.1",
+    "gulp-sourcemaps": "^1.5.2",
     "gulp-util": "^3.0.6",
     "source-map-support": "^0.3.2"
   }
