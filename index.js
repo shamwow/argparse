@@ -1,1 +1,1 @@
-// Require built files here.
+import './dist/lib/argvparser';
