@@ -1,6 +1,6 @@
 # ArgvParser
 
-Simple command line argument (not flag) parser.
+Simple command line argument parser.
 
 ### Installation
 
@@ -14,77 +14,120 @@ $ npm i argvparser --save
 var ArgvParser = require('argvparser'),
     program = new ArgvParser();
 
-// global namespace is triggered as toplevel command (see example command templates for clarification)
-program.register('global <required_arg> [optional_arg]', function (rarg, oarg){
+program.register('<required_arg> [optional_arg]', function (rarg, oarg, options, flags) {
     console.log('Required Arg: ', rarg);
     console.log('Optional Arg: ', oarg);
 });
 
-// register calls can be chained [ArgvParser::register() returns instance of ArgvParser]
+// Register calls can be chained [ArgvParser::register() returns instance of ArgvParser]
 program
-    .register('test [optional_arg]', function (oarg){
+    .register('test [optional_arg] --test', function (oarg, options, flags) {
+        // flags.test === true or false
         console.log('Optional Argument', oarg);
     })
-    .register('test2 <required_tuple, 3>', function (tuple){
+    .register('test2 -o:2 <required_tuple, 3>', function (tuple, options, flags) {
+        // options.o.length === 3 (if option o is given)
         // tuple.length == 3
         console.log('Tuple Argument', tuple);
     });
-    
+
 // to actually parse arguments call ArgvParser::parse()
 program.parse();
 
 ```
+##### Notes
+- Arguments with sequence modifier (`...` or `..INT`) passed to callback in arrays.
+- Arguments with tuple modifier (`<ID, INT>` or `[ID, INT]`) passed to callback in arrays.
+- So `<ID, 2>..2` would be passed to callback as an array of arrays of two element (`[[1, 2], [1, 2]]`).
+- Options expect 1 argument by default. Can be changed with quantifier (`-option_name:INT`).
+
+### More Examples
+Assume script is located in `./script`
+Command template following by script calls and corresponding argument values.
+```
+program.register('<required_arg> -o [optional_arg]...', function (rarg, oarg, options, flags) {
+    ...
+});
+
+$ ./script arg1 arg2 arg3
+    rarg = 'arg1'
+    oarg = ['arg2', 'arg3']
+    options = {
+        o: undefined
+    }
+    flags = {}
+
+$ ./script arg1 arg2 -o test
+    rarg = 'arg1'
+    oarg = 'arg2'
+    options = {
+        o: 'test'
+    }
+    flags = {}
+```
+
+```
+program.register('<required_arg>..2 -o:2 --flag [optional_arg, 2]...', function (rarg, oarg, options, flags) {
+    ...
+});
+
+$ ./script arg1 arg2 arg3 arg4
+    rarg = ['arg1', 'arg2']
+    oarg = [['arg3', 'arg4']]
+    options = {
+        o: undefined
+    }
+    flags = {
+        flag: false
+    }
+
+$ ./script arg1 arg2 -o test --flag
+    rarg = ['arg1', 'arg2']
+    oarg = undefined
+    options = {
+        o: 'test'
+    }
+    flags = {
+        flag: true
+    }
+```
+
 
 ### Command Template Grammar
 
+ε corresponds to the empty string.
 ```
-command_template = name rarg 0.. oarg_mod 0..
-where
-    name = string (no whitespaces, cannot equal node)
-    
-    rarg = <name> (required argument)
-         = <name, N> (required N-tuple)
-    
-    oarg = [name] (optional argument)
-         = [name, N] (optional N-tuple)
+template = ids aofs
+ids = id ids
+    = ε
+aofs = aof aofs
+     = lastaof
+aof = rarg
+    = option
+    = flag
+rarg = <ID>
+     = <ID, INT>
+     = <ID>..INT
+     = <ID, INT>..INT
+option = -ID
+       = -ID:INT
+flag = --ID
+lastaof = lastarg ofs
+ofs = option ofs
+    = flag ofs
+    = ε
+lastarg = rarg
+        = <ID>...
+        = <ID, INT>...
+        = [ID]
+        = [ID, INT]
+        = [ID]..INT
+        = [ID, INT]..INT
+        = [ID]...
+        = [ID, INT]...
 
-    oarg_mod = oarg
-             = oarg... (infinite modifier)
-
-infinite and optional arguments must appear last
+Infinite and optional arguments must appear last.
 ```
-Example Command Templates and Matching Commands:
-(Assume script is defined in ./myfile)
-```
-global <required_inf_arg>...
-$  ./myfile test
-$  node ./myfile test test2
-$  ./myfile test test2 test3
-```
-```
-sub_cmd <required_inf_arg, 2>...
-$  ./myfile sub_cmd test test2
-$  node ./myfile sub_cmd test test2 test3 test4
-```
-```
-tuple <required_arg, 3> [optional_inf_arg]...
-$  node ./myfile tuple test test2 test3
-$  ./myfile tuple test test2 test3 test4
-$  ./myfile tuple test test2 test3 test4 test5
-```
-```
-optional_tuple [optional_inf_tuple, 2]...
-$  ./myfile optional_tuple
-$  ./myfile optional_tuple test test2
-$  ./myfile optional_tuple arg1 arg2 arg3 arg4
-```
-
-
-### Todo's
-
- - Write Tests
- - Support for flag parsing
- - Types
 
 License
 ----
