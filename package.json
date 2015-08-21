@@ -3,9 +3,6 @@
   "version": "0.0.6",
   "description": "Simple argument parser",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Shahmeer Navid",
   "license": "MIT",
   "directories": {
@@ -23,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/shahmeernavid/argparse/issues"
   },
-  "homepage": "https://github.com/shahmeernavid/argparse"
+  "homepage": "https://github.com/shahmeernavid/argparse",
+  "devDependencies": {
+    "gulp-mocha": "^2.1.3"
+  },
+  "dependencies": {
+    "source-map-support": "^0.3.2"
+  }
 }
