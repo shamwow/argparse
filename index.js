@@ -1,1 +1,1 @@
-import './dist/lib/argvparser';
+require('./dist/lib/argvparser');
