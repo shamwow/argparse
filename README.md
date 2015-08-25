@@ -1,6 +1,6 @@
 # ArgvParser
 
-Simple command line argument parser.
+Simple command line argument parser. Allows the easy specification of required and optional arguments for command line utilities.
 
 ### Installation
 
@@ -35,11 +35,20 @@ program
 program.parse();
 
 ```
-##### Notes
+### API
+##### ArgvParser::register(cmd_template, cb, [failCb])
+`cmd_template`: a string giving the command template. See command template grammer for full details. Some notes:
+- Flag and option ids must start with a letter and only contain letters and numbers.
 - Arguments with sequence modifier (`...` or `..INT`) passed to callback in arrays.
 - Arguments with tuple modifier (`<ID, INT>` or `[ID, INT]`) passed to callback in arrays.
 - So `<ID, 2>..2` would be passed to callback as an array of arrays of two element (`[[1, 2], [1, 2]]`).
 - Options expect 1 argument by default. Can be changed with quantifier (`-option_name:INT`).
+- `INT > 0`
+
+`cb`: callback to be called when a command matches the given template. `cb` passed required and optional arguments followed by a maps of `options` and `flags`. See more examples for more details.
+
+`failCb`: optional failure callback. If specified, will be called with error that occured. Otherwise, if not given, error is thrown. An example error that could occur: `new Error('Not enough arguments given for option test;')`
+
 
 ### More Examples
 Assume script is located in `./script`

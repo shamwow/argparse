@@ -15,9 +15,6 @@ export default class ArgvParser {
     **/
     _throw(err, msg='') {
         let errMessage = msg;
-        if (this.usage) {
-            errMessage = msg + '\n' + this.usage;
-        }
 
         if (errMessage.length) {
             err.message = errMessage + '\n\n' + err.message;
@@ -33,8 +30,9 @@ export default class ArgvParser {
             pattern - Command pattern to register.
             fn - Function associate with command pattern.
                 Last two arguments will be options and flags
+            fail - Failure callback to call on command match fail.
     **/
-    register(pattern, fn, usage) {
+    register(pattern, fn, fail) {
         // Type validation.
         if (typeof pattern !== 'string') {
             throw new Error('Pattern template must be a string');
@@ -70,7 +68,7 @@ export default class ArgvParser {
         this.commands[id] = {
             template: commandTemplate,
             fn: fn,
-            usage: usage
+            fail: fail
         };
 
         return this;
@@ -125,8 +123,21 @@ export default class ArgvParser {
             this._throw(new Error('Unknown command.'));
         }
 
-        // Otherwise match the input with the correct command template.
-        const result = new Matcher(tokens, lastCommand.template).match();
+        let result;
+        try {
+            // Otherwise match the input with the correct command template.
+            result = new Matcher(tokens, lastCommand.template).match();
+        }
+        catch (e) {
+            if (lastCommand.fail) {
+                fail(e);
+                return;
+            }
+            else {
+                throw e;
+            }
+        }
+
         // Then call the corresponding function.
         lastCommand.fn.apply(this.callee, result.args.concat(result.options, result.flags));
     }
